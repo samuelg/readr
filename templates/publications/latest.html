@@ -1,0 +1,11 @@
+<h1>{% block header %} Latest Publication {% endblock %}</h2>
+
+{% block content_left %}
+
+Title: {{ publication.title }}
+<br />
+Description: {{ publication.description }}
+<br />
+Added: {{ publication.added  }}
+
+{% endblock %}
