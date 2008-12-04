@@ -1,4 +1,6 @@
-<h1>{% block header %} Latest Publication {% endblock %}</h2>
+{% extends "base.html" %}
+
+{% block header %} Latest {{ block.super }} {% endblock %}
 
 {% block content_left %}
 

@@ -7,7 +7,7 @@ class Publication(models.Model):
     description = models.TextField()
     added = models.DateTimeField(default=datetime.now)
     title = models.TextField()
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(User)    
 
     def __unicode__(self):
         return self.title

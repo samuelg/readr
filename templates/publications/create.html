@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block header %}
+  Create a new {{ block.super }}
+{% endblock %}
+
+{% block content_left %}
+  <form method="POST" action=".">
+    <ul>
+      {{ form.as_ul }}
+    </ul>
+
+    <input type="submit" value="Create" />
+  </form>
+{% endblock %}

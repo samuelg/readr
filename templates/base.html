@@ -1,18 +1,21 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
 <head>
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Readr{% endblock %}</title>
 </head>
 <body>
+
     <h1>Readr</h1>
     <hr />
 
-    {% block header %}{% endblock %}
+    <h2>
+      {% block header %}Publication{% endblock %}
+    </h2>
     {% block content_left %}{% endblock %}
     {% block content_right %}{% endblock %}
     {% block footer %}
     <hr />
-    <p>2008</p>
+    <p>&copy; 2008</p>
     {% endblock %}
 </body>
 </html>
