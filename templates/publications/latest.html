@@ -4,28 +4,28 @@
 
 {% block content_left %}
 
-{% for publication in publications %}
+{% for publication, readings in publications %}
    <p>
-      Title: {{ publication.title }}
+      Title: <a href="{% url pub_view publication.id %}">{{ publication.title }}</a>
       <br />
       Description: {{ publication.description }}
       <br />
       Added: {{ publication.added  }}
    </p>
    <p>
+      {% if readings %}
+         You have read this book
+      {% else %}
       <form method="POST" action="{% url pub_read publication.id %}">
 	<ul>
            {{ reading_form.as_ul }}
 	</ul>
 	<input type="submit" value="Read" />
       </form>
+      {% endif %}
    </p>
 {% endfor %}
 
 {% endblock %}
 
-{% block content_right %}
-   <p>
-      <a href="{% url pub_create %}">Create a publication</a>
-   </p>
-{% endblock %}
+

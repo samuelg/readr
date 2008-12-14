@@ -7,8 +7,16 @@ from django.contrib.auth.decorators import login_required
 
 def latest(request):
     publications = Publication.objects.order_by('-added')
+    readings = []
+    for publication in publications:
+        try:
+            reading = Reading.objects.get(publication=publication, user=request.user)
+        except Reading.DoesNotExist:
+            readings.append(False)
+        else:
+            readings.append(True)
     reading_form = ReadingForm()    
-    context = {'publications': publications, 'reading_form': reading_form}
+    context = {'publications': zip(publications, readings), 'reading_form': reading_form}
     return render_to_response('publications/latest.html', context)
 
 @login_required
@@ -45,3 +53,19 @@ def read(request, publication_id):
             next = reverse('pub_latest')
         return HttpResponseRedirect(next)
     return render_to_response('publications/view.html', {'publication': publication, 'reading_form': form})
+
+@login_required
+def view(request, publication_id):
+    form = ReadingForm()
+    try:
+        publication = Publication.objects.get(id=publication_id)
+    except Publication.DoesNotExist:
+        return Http404
+    reading = None
+    try:
+        reading = Reading.objects.get(publication=publication, user=request.user)
+    except Reading.DoesNotExist:
+        pass
+    return render_to_response('publications/view.html',
+        {'publication': publication, 'reading': reading, 'reading_form': form},
+    )

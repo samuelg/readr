@@ -14,12 +14,19 @@
 		<table>
 		<tr>
 		<td valign="top">
-    	{% block content_left %}{% endblock %}
+    		  {% block content_left %}{% endblock %}
 		</td>
 
 		
 		<td valign="top">
-    	{% block content_right %}{% endblock %}
+    		  {% block content_right %}
+		      <p>
+			<a href="{% url pub_create %}">Create a publication</a>
+		      </p>
+		       <p>
+			<a href="{% url pub_latest %}">Latest publications</a>
+		      </p>
+		  {% endblock %}
 		</td>
 		</table>
 

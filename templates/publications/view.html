@@ -1,1 +1,28 @@
-view
+{% extends "base.html" %}
+
+{% block header %} {{ publication.title}} {% endblock %}
+
+{% block content_left %}
+
+   <p>
+      Title: {{ publication.title }}
+      <br />
+      Description: {{ publication.description }}
+      <br />
+      Added: {{ publication.added  }}
+   </p>
+   <p>
+      {% if reading %}
+         You have read this book
+      {% else %}
+      <form method="POST" action="{% url pub_read publication.id %}">
+	<ul>
+           {{ reading_form.as_ul }}
+	</ul>
+	<input type="submit" value="Read" />
+      </form>
+      {% endif %}
+   </p>
+
+{% endblock %}
+
