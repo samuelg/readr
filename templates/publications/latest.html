@@ -12,6 +12,14 @@
       <br />
       Added: {{ publication.added  }}
    </p>
+   <p>
+      <form method="POST" action="{% url pub_read publication.id %}">
+	<ul>
+           {{ reading_form.as_ul }}
+	</ul>
+	<input type="submit" value="Read" />
+      </form>
+   </p>
 {% endfor %}
 
 {% endblock %}
