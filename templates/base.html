@@ -11,11 +11,21 @@
     <h2>
       {% block header %}Publication{% endblock %}
     </h2>
-    {% block content_left %}{% endblock %}
-    {% block content_right %}{% endblock %}
+		<table>
+		<tr>
+		<td valign="top">
+    	{% block content_left %}{% endblock %}
+		</td>
+
+		
+		<td valign="top">
+    	{% block content_right %}{% endblock %}
+		</td>
+		</table>
+
     {% block footer %}
-    <hr />
-    <p>&copy; 2008</p>
+    	<hr />
+    	<p>&copy; 2008</p>
     {% endblock %}
 </body>
 </html>

@@ -1,13 +1,23 @@
 {% extends "base.html" %}
 
-{% block header %} Latest {{ block.super }} {% endblock %}
+{% block header %} Latest {{ block.super }}s {% endblock %}
 
 {% block content_left %}
 
-Title: {{ publication.title }}
-<br />
-Description: {{ publication.description }}
-<br />
-Added: {{ publication.added  }}
+{% for publication in publications %}
+   <p>
+      Title: {{ publication.title }}
+      <br />
+      Description: {{ publication.description }}
+      <br />
+      Added: {{ publication.added  }}
+   </p>
+{% endfor %}
 
+{% endblock %}
+
+{% block content_right %}
+   <p>
+      <a href="{% url pub_create %}">Create a publication</a>
+   </p>
 {% endblock %}

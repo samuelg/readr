@@ -3,12 +3,14 @@ from django.shortcuts import render_to_response
 from publications.forms import PublicationForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 def latest(request):
-    publication = Publication.objects.order_by('-added')[0]
-    context = {'publication': publication}
+    publications = Publication.objects.order_by('-added')
+    context = {'publications': publications}
     return render_to_response('publications/latest.html', context)
 
+@login_required
 def create(request):
     form = PublicationForm(request.POST or None)
     if form.is_valid():
