@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
+from django.contrib import admin
 
 RATING_CHOICES = (
     (1, '1'),
@@ -36,3 +37,7 @@ class Quote(models.Model):
 
     def __unicode__(self):
         return self.text
+
+admin.site.register(Publication)
+admin.site.register(Reading)
+admin.site.register(Quote)
