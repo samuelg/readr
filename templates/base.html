@@ -11,6 +11,12 @@
     <h2>
       {% block header %}Publication{% endblock %}
     </h2>
+
+    {% if user.is_authenticated %}
+      Welcome {{ user.username }} | <a href="{% url logout %}">Log out</a>
+    {% else %}
+      <a href="{% url login %}">Login</a>
+    {% endif %}
 		<table>
 		<tr>
 		<td valign="top">
@@ -32,7 +38,7 @@
 
     {% block footer %}
     	<hr />
-    	<p>&copy; 2008</p>
+    	<p>&copy; 2009</p>
     {% endblock %}
 </body>
 </html>

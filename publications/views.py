@@ -4,6 +4,7 @@ from publications.forms import PublicationForm, ReadingForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
 
 def latest(request):
     publications = Publication.objects.order_by('-added')
@@ -17,7 +18,11 @@ def latest(request):
             readings.append(True)
     reading_form = ReadingForm()    
     context = {'publications': zip(publications, readings), 'reading_form': reading_form}
-    return render_to_response('publications/latest.html', context)
+
+    return render_to_response('publications/latest.html',
+        context,
+        context_instance=RequestContext(request)
+    )
 
 @login_required
 def create(request):
@@ -32,7 +37,11 @@ def create(request):
         else:
             next = reverse('pub_latest')
         return HttpResponseRedirect(next)
-    return render_to_response('publications/create.html', {'form': form})
+
+    return render_to_response('publications/create.html',
+        {'form': form},
+        context_instance=RequestContext(request)
+    )
 
 @login_required
 def read(request, publication_id):
@@ -52,9 +61,12 @@ def read(request, publication_id):
         else:
             next = reverse('pub_latest')
         return HttpResponseRedirect(next)
-    return render_to_response('publications/view.html', {'publication': publication, 'reading_form': form})
 
-@login_required
+    return render_to_response('publications/view.html',
+        {'publication': publication, 'reading_form': form},
+        context_instance=RequestContext(request)
+    )
+
 def view(request, publication_id):
     form = ReadingForm()
     try:
@@ -66,6 +78,8 @@ def view(request, publication_id):
         reading = Reading.objects.get(publication=publication, user=request.user)
     except Reading.DoesNotExist:
         pass
+
     return render_to_response('publications/view.html',
         {'publication': publication, 'reading': reading, 'reading_form': form},
+        context_instance=RequestContext(request)
     )
