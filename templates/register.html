@@ -4,7 +4,7 @@
 
 {{ form.non_field_errors }}
 
-<form action="{% url login %}" method="POST">
+<form action="{% url register %}" method="POST">
   <ul>
     {% for field in form %}
       <li>
@@ -13,6 +13,6 @@
       </li>
     {% endfor %}
   </ul>
-  <input type="submit" value="Login" />
+  <input type="submit" value="Register" />
 </form>
 {% endblock %}
