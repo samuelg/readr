@@ -5,28 +5,29 @@
 
 {% block content_left %}
 
-{% for publication, readings in publications %}
-   <p>
-      Title: <a href="{% url pub_view publication.id %}">{{ publication.title }}</a>
-      <br />
-      Description: {{ publication.description }}
-      <br />
-      Added: {{ publication.added  }}
-   </p>
-   <p>
-      {% if readings %}
-         You have read this book
-      {% else %}
-      <form method="POST" action="{% url pub_read publication.id %}">
-	<ul>
-           {{ reading_form.as_ul }}
-	</ul>
-	<input type="submit" value="Read" />
-      </form>
+{% for publication, reading in publications %}
+  <p>
+    Title: <a href="{% url pub_view publication.id %}">{{ publication.title }}</a>
+    <br />
+    Description: {{ publication.description }}
+    <br />
+    Added: {{ publication.added  }}
+  </p>
+  <p>
+    {% if reading %}
+      You have read this book (your rating: {{ reading.rating }}/5)
+    {% else %}
+      {% if user.is_authenticated %}
+        <form method="POST" action="{% url pub_read publication.id %}">
+	  <ul>
+            {{ reading_form.as_ul }}
+	   </ul>
+ 	  <input type="submit" value="Read" />
+	  <input type="hidden" name="next" value="{% url pub_latest %}" />
+        </form>
       {% endif %}
-   </p>
+    {% endif %}
+  </p>
 {% endfor %}
 
 {% endblock %}
-
-

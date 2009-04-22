@@ -25,16 +25,18 @@ class LoginForm(forms.Form):
 
 class RegisterForm(forms.Form):
     user_id = forms.CharField(max_length=50, widget=forms.TextInput)
+    email = forms.EmailField(max_length=200, widget=forms.TextInput)
     password = forms.CharField(max_length=16, widget=forms.PasswordInput(render_value=False))
     password_confirm = forms.CharField(max_length=16, widget=forms.PasswordInput(render_value=False))
 
     def clean(self):
         """
-            Validates that the user id is not taken and that the password confirmation matches
+            Validates that the user id and email is not taken and that the password confirmation matches
             the password given.
         """
         cleaned_data = self.cleaned_data
         user_id = cleaned_data.get('user_id')
+        email = cleaned_data.get('email')
         password = cleaned_data.get('password')
         password_confirm = cleaned_data.get('password_confirm')
 
@@ -44,8 +46,17 @@ class RegisterForm(forms.Form):
             except User.DoesNotExist:
                 user = None
 
+
             if user is not None:
                 raise forms.ValidationError('the user id is already in use')
+
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                user = None
+
+            if user is not None:
+                raise forms.ValidationError('the email is already in use')
             if password != password_confirm:
                 raise forms.ValidationError('password_confirm must match password')
             

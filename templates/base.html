@@ -1,44 +1,43 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
 <head>
-    <title>{% block title %}Readr{% endblock %}</title>
+  <title>{% block title %}Readr{% endblock %}</title>
 </head>
 <body>
 
-    <h1>Readr</h1>
-    <hr />
+  <h1>Readr</h1>
+  <hr />
 
-    <h2>
-      {% block header %}Publication{% endblock %}
-    </h2>
+  <h2>
+    {% block header %}Publication{% endblock %}
+  </h2>
 
-    {% if user.is_authenticated %}
-      Welcome {{ user.username }} | <a href="{% url logout %}">Log out</a>
-    {% else %}
-      <a href="{% url login %}">Login</a> | <a href="{% url register %}">Register</a>
-    {% endif %}
-		<table>
-		<tr>
-		<td valign="top">
-    		  {% block content_left %}{% endblock %}
-		</td>
-
+  {% if user.is_authenticated %}
+    Welcome {{ user.username }} | <a href="{% url logout %}">Log out</a>
+  {% else %}
+    <a href="{% url login %}">Login</a> | <a href="{% url register %}">Register</a>
+  {% endif %}
+  <table>
+    <tr>
+      <td valign="top">
+        {% block content_left %}{% endblock %}
+      </td>
 		
-		<td valign="top">
-    		  {% block content_right %}
-		      <p>
-			<a href="{% url pub_create %}">Create a publication</a>
-		      </p>
-		       <p>
-			<a href="{% url pub_latest %}">Latest publications</a>
-		      </p>
-		  {% endblock %}
-		</td>
-		</table>
+      <td valign="top">
+        {% block content_right %}
+	  <p>
+            <a href="{% url pub_create %}">Create a publication</a>
+          </p>
+          <p>
+            <a href="{% url pub_latest %}">Latest publications</a>
+	  </p>
+        {% endblock %}
+      </td>
+  </table>
 
-    {% block footer %}
-    	<hr />
-    	<p>&copy; 2009</p>
-    {% endblock %}
+  {% block footer %}
+    <hr />
+    <p>&copy; 2009</p>
+  {% endblock %}
 </body>
 </html>

@@ -14,15 +14,18 @@ def login_user(request):
     
     if request.POST and form.is_valid():
         cleaned_data = form.cleaned_data
-        user_id = cleaned_data.get('user_id')
-        password = cleaned_data.get('password')
+        user_id = cleaned_data['user_id']
+        password = cleaned_data['password']
 
         user = authenticate(username=user_id, password=password)
         login(request, user)
+        
+        return HttpResponseRedirect(request.POST.get('next', reverse('pub_latest')))
 
-        return HttpResponseRedirect(reverse('pub_latest'))
-
-    return render_to_response('login.html', {'form': form}, context_instance=RequestContext(request))
+    context = {'form': form}
+    if 'next' in request.REQUEST:
+        context['next'] = request.REQUEST['next']
+    return render_to_response('login.html', context, context_instance=RequestContext(request))
 
 def logout_user(request):
     if request.user.is_authenticated():
@@ -38,13 +41,15 @@ def register_user(request):
     
     if request.POST and form.is_valid():
         cleaned_data = form.cleaned_data
-        user_id = cleaned_data.get('user_id')
-        password = cleaned_data.get('password')
+        user_id = cleaned_data['user_id']
+        password = cleaned_data['password']
+        email = cleaned_data['email']
 
         # create user
-        #user = authenticate(username=user_id, password=password)
-        #login(request, user)
+        user = User.objects.create_user(user_id, email, password)
+        user.save()
 
         return HttpResponseRedirect(reverse('pub_latest'))
 
-    return render_to_response('register.html', {'form': form}, context_instance=RequestContext(request))
+    context = {'form': form}
+    return render_to_response('register.html', context, context_instance=RequestContext(request))
