@@ -5,12 +5,27 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
+
 
 def latest(request):
-    publications = Publication.objects.order_by('-added')
+    publication_list = Publication.objects.order_by('-added')
     readings = []
 
-    for publication in publications:
+    # setup pagination
+    paginator = Paginator(publication_list, 2)
+
+    try:
+        page = int(request.GET.get('page', '1'))
+    except ValueError:
+        page = 1
+
+    try:
+        publications = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        publications = paginator.page(paginator.num_pages)
+
+    for publication in publications.object_list:
         try:
             if not request.user.is_authenticated():
                 raise Reading.DoesNotExist
@@ -20,8 +35,11 @@ def latest(request):
         else:
             readings.append(reading)
 
+    # store publication objects and associated reading objects in a tupple
+    publications.object_list = zip(publications.object_list, readings)
+
     reading_form = ReadingForm()    
-    context = {'publications': zip(publications, readings), 'reading_form': reading_form}
+    context = {'publications': publications, 'reading_form': reading_form}
 
     return render_to_response('publications/latest.html',
         context,

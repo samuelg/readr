@@ -5,13 +5,24 @@
 
 {% block content_left %}
 
-{% for publication, reading in publications %}
+{% if publications.has_previous %}
+  <a href="?page={{ publications.previous_page_number }}">previous</a>
+{% endif %}
+
+Page {{ publications.number }} of {{ publications.paginator.num_pages }}.
+
+{% if publications.has_next %}
+  <a href="?page={{ publications.next_page_number }}">next</a>
+{% endif %}
+
+
+{% for publication, reading in publications.object_list %}
   <p>
     Title: <a href="{% url pub_view publication.id %}">{{ publication.title }}</a>
     <br />
     Description: {{ publication.description }}
     <br />
-    Added: {{ publication.added  }}
+    Added: {{ publication.added|date }}
   </p>
   <p>
     {% if reading %}
