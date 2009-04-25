@@ -5,6 +5,7 @@ from forms import LoginForm, RegisterForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
+from datetime import datetime, timedelta
 
 def login_user(request):
     if request.user.is_authenticated():
@@ -16,10 +17,14 @@ def login_user(request):
         cleaned_data = form.cleaned_data
         user_id = cleaned_data['user_id']
         password = cleaned_data['password']
+        remember = cleaned_data['remember']
 
         user = authenticate(username=user_id, password=password)
         login(request, user)
-        
+        if remember:
+            # set session expiry to 2 weeks
+            request.session.set_expiry(datetime.now() + timedelta(days=14))
+
         return HttpResponseRedirect(request.POST.get('next', reverse('pub_latest')))
 
     context = {'form': form}
@@ -30,6 +35,9 @@ def login_user(request):
 def logout_user(request):
     if request.user.is_authenticated():
         logout(request)
+    
+    # reset session expiry    
+    request.session.set_expiry(0)
 
     return HttpResponseRedirect(reverse('login'))
 
@@ -49,7 +57,7 @@ def register_user(request):
         user = User.objects.create_user(user_id, email, password)
         user.save()
 
-        return HttpResponseRedirect(reverse('pub_latest'))
+        return HttpResponseRedirect(reverse('login'))
 
     context = {'form': form}
     return render_to_response('register.html', context, context_instance=RequestContext(request))

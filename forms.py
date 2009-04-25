@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class LoginForm(forms.Form):
     user_id = forms.CharField(max_length=50, widget=forms.TextInput)
     password = forms.CharField(max_length=16, widget=forms.PasswordInput(render_value=False))
+    remember = forms.BooleanField(label='Remember me', required=False, widget=forms.CheckboxInput)
 
     def clean(self):
         """
@@ -27,7 +28,7 @@ class RegisterForm(forms.Form):
     user_id = forms.CharField(max_length=50, widget=forms.TextInput)
     email = forms.EmailField(max_length=200, widget=forms.TextInput)
     password = forms.CharField(max_length=16, widget=forms.PasswordInput(render_value=False))
-    password_confirm = forms.CharField(max_length=16, widget=forms.PasswordInput(render_value=False))
+    password_confirm = forms.CharField(label='Confirm password', max_length=16, widget=forms.PasswordInput(render_value=False))
 
     def clean(self):
         """
