@@ -1,3 +1,97 @@
 body {
-  background-color: #E1FF8F;
+  background-color: #fff;
+  margin: 4em;
+  font-family: helvetica, arial;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 0em;
+}
+
+h2 {
+  font-size: 1.8em;
+  margin-top: .5em;
+}
+
+hr {
+  clear: both;
+}
+
+p {
+}
+
+#nav {
+  float: right;
+  font-size: 1.3em;
+  margin-bottom: .3em;
+}
+
+#nav a {
+  text-decoration: none;
+}
+
+#content-body {
+  text-align: center;
+  clear: right;
+}
+
+#left-content-body {
+  text-align: left;
+  float:left;
+  font-size: 1em;
+}
+
+form ul {
+  list-style-type: none;
+}
+
+form li {
+  clear: both;
+  line-height: 2em;
+}
+
+#login-form label {
+  float: left;
+  width: 8em;
+  padding-right: 2em;
+}
+
+#login-form input {
+  float:left;
+}
+
+#login-form .submit-button {
+  clear: both;
+  padding-left: 12.5em;
+  padding-top: .5em;
+}
+
+#right-content-body {
+  text-align: right;
+  padding: 1em;
+  margin-top: 0em;   
+  float: right;
+  font-size: 1em;
+  background-color: #333;
+}
+
+#right-content-body a {
+  text-decoration: none;
+  color: #ddd;
+  font-weight: bold;
+}
+
+#left-content-body p, right-content-body p {
+}
+
+#footer {
+  clear: both;  
+  padding-top: 1em;
+  font-size: .8em;
+}
+
+#footer p {
+  float: right;
+  padding-top: 0em;
 }

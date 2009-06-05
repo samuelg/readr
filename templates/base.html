@@ -8,40 +8,43 @@
 <body>
 
   <h1>Readr</h1>
+
+  <div id="nav">
+    {% if user.is_authenticated %}
+      Welcome {{ user.username }} | <a href="{% url logout %}">Log out</a>
+    {% else %}
+      <a href="{% url login %}">Login</a> | <a href="{% url register %}">Register</a>
+    {% endif %}
+  </div>
   <hr />
 
   <h2>
-    {% block header %}Publication{% endblock %}
+    {% block header %}{% endblock %}
   </h2>
 
-  {% if user.is_authenticated %}
-    Welcome {{ user.username }} | <a href="{% url logout %}">Log out</a>
-  {% else %}
-    <a href="{% url login %}">Login</a> | <a href="{% url register %}">Register</a>
-  {% endif %}
-  <br /><br />
-
-  <table>
-    <tr>
-      <td valign="top">
-        {% block content_left %}{% endblock %}
-      </td>
+  <div id="content-body">
+    <div id="left-content-body">
+      {% block content_left %}{% endblock %}
+    </div>
 		
-      <td valign="top">
-        {% block content_right %}
-	  <p>
-            <a href="{% url pub_create %}">Create a publication</a>
-          </p>
-          <p>
-            <a href="{% url pub_latest %}">Latest publications</a>
-	  </p>
-        {% endblock %}
-      </td>
-  </table>
+    <div id="right-content-body">
+      {% block content_right %}
+	<p>
+          <a href="{% url pub_create %}">Create a publication</a>
+        </p>
+        <p>
+          <a href="{% url pub_latest %}">Latest publications</a>
+	</p>
+      {% endblock %}
+    </div>
+  </div>
 
-  {% block footer %}
-    <hr />
-    <p>&copy; {% now "Y" %}</p>
-  {% endblock %}
+  <div id="footer">
+    {% block footer %}
+      <hr />
+      <p>&copy; Samuel Fortier Galarneau {% now "Y" %}</p>
+    {% endblock %}
+  </div>
+
 </body>
 </html>

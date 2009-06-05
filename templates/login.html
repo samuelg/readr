@@ -4,16 +4,20 @@
 
 {{ form.non_field_errors }}
 
-<form action="{% url login %}" method="POST">
-  <ul>
-    {% for field in form %}
-      <li>
-        {{ field.errors }}
-        {{ field.label_tag }}: {{ field }}
-      </li>
-    {% endfor %}
-  </ul>
-  <input type="submit" value="Login" />
-  <input type="hidden" name="next" value="{{ next }}" />
-</form>
+<div id="login-form">
+  <form action="{% url login %}" method="POST">
+    <ul>
+      {% for field in form %}
+        <li>
+          {{ field.errors }}
+          <label for="{{ field.name}}">{{ field.label_tag }}</label> {{ field }}
+        </li>
+      {% endfor %}
+    </ul>
+    <div class="submit-button">
+      <input type="submit" value="Login" />
+    </div>
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+</div>
 {% endblock %}
