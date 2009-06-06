@@ -10,11 +10,11 @@
       <ul>
         {% for field in form %}
           <li>
-	    {{ field.errors }}
+            {{ field.errors }}
 	    
-	    <label for="{{ field.name }}">{{ field.label_tag }}</label> {{ field }}
+            <label for="{{ field.name }}">{{ field.label_tag }}</label> {{ field }}
           </li>
-	{% endfor %}
+        {% endfor %}
       </ul>
 
       <div class="submit-button">
