@@ -5,13 +5,22 @@ body {
 }
 
 h1 {
+  float: left;
   font-size: 3em;
-  margin-bottom: 0em;
+  margin: 0em;
+}
+
+#tag-line {
+  float: left;
+  font-size: 1em;
+  margin-left: .4em;
+  margin-top: 1.95em;
 }
 
 h2 {
   font-size: 1.8em;
   margin-top: .5em;
+  margin-left: 1em;
 }
 
 hr {
@@ -24,11 +33,12 @@ p {
 #nav {
   float: right;
   font-size: 1.3em;
-  margin-bottom: .3em;
+  margin-top: 1.35em;
 }
 
 #nav a {
   text-decoration: none;
+  color: blue;
 }
 
 #content-body {
@@ -53,8 +63,8 @@ form li {
 
 #login-form label {
   float: left;
-  width: 8em;
-  padding-right: 2em;
+  width: 7em;
+  padding-right: 1em;
 }
 
 #login-form input {
@@ -63,8 +73,40 @@ form li {
 
 #login-form .submit-button {
   clear: both;
-  padding-left: 12.5em;
-  padding-top: .5em;
+  margin-left: 10.5em;
+  margin-top: .5em;
+}
+
+#register-form label {
+  float: left;
+  width: 9em;
+  padding-right: 1em;
+}
+
+#register-form input {
+  float:left;
+}
+
+#register-form .submit-button {
+  clear: both;
+  margin-left: 12.5em;
+  margin-top: .5em;
+}
+
+#create-form label {
+  float: left;
+  width: 5em;
+  padding-right: 1em;
+}
+
+#create-form input {
+  float:left;
+}
+
+#create-form .submit-button {
+  clear: both;
+  margin-left: 8.5em;
+  margin-top: .5em;
 }
 
 #right-content-body {
@@ -85,6 +127,10 @@ form li {
 #left-content-body p, right-content-body p {
 }
 
+#latest-pubs, #view-pub {
+  margin-left: 2em;
+}
+
 #footer {
   clear: both;  
   padding-top: 1em;
@@ -93,5 +139,5 @@ form li {
 
 #footer p {
   float: right;
-  padding-top: 0em;
+  margin-top: .1em;
 }

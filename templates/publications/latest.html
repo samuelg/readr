@@ -5,40 +5,43 @@
 
 {% block content_left %}
 
-{% if publications.has_previous %}
-  <a href="?page={{ publications.previous_page_number }}">previous</a>
-{% endif %}
+<div id="latest-pubs">
+  {% if publications.has_previous %}
+    <a href="?page={{ publications.previous_page_number }}">previous</a>
+  {% endif %}
 
-Page {{ publications.number }} of {{ publications.paginator.num_pages }}.
+  Page {{ publications.number }} of {{ publications.paginator.num_pages }}.
 
-{% if publications.has_next %}
-  <a href="?page={{ publications.next_page_number }}">next</a>
-{% endif %}
+  {% if publications.has_next %}
+    <a href="?page={{ publications.next_page_number }}">next</a>
+  {% endif %}
 
 
-{% for publication, reading in publications.object_list %}
-  <p>
-    Title: <a href="{% url pub_view publication.id %}">{{ publication.title }}</a>
-    <br />
-    Description: {{ publication.description }}
-    <br />
-    Added: {{ publication.added|date }}
-  </p>
-  <p>
-    {% if reading %}
-      You have read this book (your rating: {{ reading.rating }}/5)
-    {% else %}
-      {% if user.is_authenticated %}
-        <form method="POST" action="{% url pub_read publication.id %}">
-	  <ul>
-            {{ reading_form.as_ul }}
-	   </ul>
- 	  <input type="submit" value="Read" />
-	  <input type="hidden" name="next" value="{% url pub_latest %}" />
-        </form>
+  {% for publication, reading in publications.object_list %}
+    <p>
+      Title: <a href="{% url pub_view publication.id %}">{{ publication.title }}</a>
+      <br />
+      Description: {{ publication.description }}
+      <br />
+      Added: {{ publication.added|date }}
+    </p>
+    <p>
+      {% if reading %}
+        You have read this book (your rating: {{ reading.rating }}/5)
+      {% else %}
+        {% if user.is_authenticated %}
+          <form method="POST" action="{% url pub_read publication.id %}">
+	    <ul>
+              {{ reading_form.as_ul }}
+	     </ul>
+ 	    <input type="submit" value="Read" />
+	    <input type="hidden" name="next" value="{% url pub_latest %}" />
+          </form>
+        {% endif %}
       {% endif %}
-    {% endif %}
-  </p>
-{% endfor %}
+    </p>
+  {% endfor %}
 
+</div>
 {% endblock %}
+

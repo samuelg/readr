@@ -9,11 +9,13 @@
 
   <h1>Readr</h1>
 
+  <div id="tag-line">Keep track of what you read and share quotes</div>
+
   <div id="nav">
     {% if user.is_authenticated %}
       Welcome {{ user.username }} | <a href="{% url logout %}">Log out</a>
     {% else %}
-      <a href="{% url login %}">Login</a> | <a href="{% url register %}">Register</a>
+      <a href="{% url login %}">Log in</a> | <a href="{% url register %}">Register</a>
     {% endif %}
   </div>
   <hr />

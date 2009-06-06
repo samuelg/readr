@@ -1,15 +1,25 @@
 {% extends "base.html" %}
 
 {% block header %}
-  Create a new {{ block.super }}
+  Create a new publication
 {% endblock %}
 
 {% block content_left %}
-  <form method="POST" action=".">
-    <ul>
-      {{ form.as_ul }}
-    </ul>
+  <div id="create-form">
+    <form method="POST" action=".">
+      <ul>
+        {% for field in form %}
+          <li>
+	    {{ field.errors }}
+	    
+	    <label for="{{ field.name }}">{{ field.label_tag }}</label> {{ field }}
+          </li>
+	{% endfor %}
+      </ul>
 
-    <input type="submit" value="Create" />
-  </form>
+      <div class="submit-button">
+        <input type="submit" value="Create" />
+      </div>
+    </form>
+  </div>
 {% endblock %}

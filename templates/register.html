@@ -1,18 +1,25 @@
 {% extends "base.html" %}
 
+{% block header %}Register to start reading{% endblock %}
+
 {% block content_left %}
 
 {{ form.non_field_errors }}
 
-<form action="{% url register %}" method="POST">
-  <ul>
-    {% for field in form %}
-      <li>
-        {{ field.errors }}
-        {{ field.label_tag }}: {{ field }}
-      </li>
-    {% endfor %}
-  </ul>
-  <input type="submit" value="Register" />
-</form>
+<div id="register-form">
+  <form action="{% url register %}" method="POST">
+    <ul>
+      {% for field in form %}
+        <li>
+          {{ field.errors }}
+          <label for="{{ field.name }}">{{ field.label_tag }}</label> {{ field }}
+        </li>
+      {% endfor %}
+    </ul>
+
+    <div class="submit-button">
+      <input type="submit" value="Register" />
+    </div>
+  </form>
+</div>
 {% endblock %}
