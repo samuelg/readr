@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block header %}
-  Create a new publication
+  What are you reading?
 {% endblock %}
 
 {% block content_left %}
@@ -10,7 +10,9 @@
       <ul>
         {% for field in form %}
           <li>
-            {{ field.errors }}
+            <div class="errors">
+              {{ field.errors }}
+            </div>
 	    
             <label for="{{ field.name }}">{{ field.label_tag }}</label> {{ field }}
           </li>

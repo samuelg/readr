@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block header %} Latest publications {% endblock %}
+{% block header %} Latest reads {% endblock %}
 
 
 {% block content_left %}
@@ -18,28 +18,44 @@
 
 
   {% for publication, reading in publications.object_list %}
+
+    <hr />
+
     <p>
-      Title: <a href="{% url pub_view publication.id %}">{{ publication.title }}</a>
-      <br />
-      Description: {{ publication.description }}
-      <br />
-      Added: {{ publication.added|date }}
+      <div class="label">Title</div>
+      <div class="value"><a href="{% url pub_view publication.id %}">{{ publication.title }}</a></div>
     </p>
     <p>
+      <div class="label">Description</div>
+      <div class="value">{{ publication.description }}</div>
+    </p>
+    <p>
+      <div class="label">Added</div>
+      <div class="value">{{ publication.added|date }}</div>
+    </p>
+    
       {% if reading %}
-        You have read this book (your rating: {{ reading.rating }}/5)
+        <div class="reading">
+          your rating: {{ reading.rating }}/5
+        </div>
       {% else %}
         {% if user.is_authenticated %}
-          <form method="POST" action="{% url pub_read publication.id %}">
-	    <ul>
-              {{ reading_form.as_ul }}
-	     </ul>
- 	    <input type="submit" value="Read" />
-	    <input type="hidden" name="next" value="{% url pub_latest %}" />
-          </form>
+          <div class="reading-form">
+            <form method="POST" action="{% url pub_read publication.id %}">
+	      <ul>
+                {% for field in reading_form %}
+                  <label for="{{ field.name }}">{{ field.label_tag }}</label> {{ field }} 
+                {% endfor %}
+	       </ul>
+
+	      <div class="submit-button">
+ 	        <input type="submit" value="Read" />
+              </div>
+	      <input type="hidden" name="next" value="{% url pub_latest %}" />
+            </form>
+          </div>
         {% endif %}
       {% endif %}
-    </p>
   {% endfor %}
 
 </div>

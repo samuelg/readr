@@ -1,6 +1,6 @@
 body {
   background-color: #fff;
-  margin: 4em;
+  margin: 7em;
   font-family: helvetica, arial;
 }
 
@@ -8,6 +8,11 @@ h1 {
   float: left;
   font-size: 3em;
   margin: 0em;
+}
+
+h1 a {
+  text-decoration: none;
+  color: #000;
 }
 
 #tag-line {
@@ -25,6 +30,14 @@ h2 {
 
 hr {
   clear: both;
+}
+
+.errors {
+  color: red;
+}
+
+.errors ul {
+  list-style-type: none;
 }
 
 p {
@@ -50,6 +63,7 @@ p {
   text-align: left;
   float:left;
   font-size: 1em;
+  width: auto;
 }
 
 form ul {
@@ -68,13 +82,17 @@ form li {
 }
 
 #login-form input {
-  float:left;
+  float: left;
 }
 
 #login-form .submit-button {
   clear: both;
   margin-left: 10.5em;
   margin-top: .5em;
+}
+
+#login-form .errors {
+  margin-left: 5.5em;
 }
 
 #register-form label {
@@ -93,6 +111,10 @@ form li {
   margin-top: .5em;
 }
 
+#register-form .errors {
+  margin-left: 7.5em;
+}
+
 #create-form label {
   float: left;
   width: 5em;
@@ -109,10 +131,14 @@ form li {
   margin-top: .5em;
 }
 
+#create-form .errors {
+  margin-left: 3.5em;
+}
+
 #right-content-body {
-  text-align: right;
+  text-align: center;
   padding: 1em;
-  margin-top: 0em;   
+  margin-top: 1em;   
   float: right;
   font-size: 1em;
   background-color: #333;
@@ -129,6 +155,51 @@ form li {
 
 #latest-pubs, #view-pub {
   margin-left: 2em;
+}
+
+
+#latest-pubs .label, #view-pub .label {
+  float: left;
+  margin-right: 1em;
+  width: 5em;
+}
+
+#latest-pubs .value, #view-pub .value {
+  float: left;
+}
+
+#latest-pubs p, #view-pub p {
+  clear: both;
+  margin-bottom: 1.5em;
+}
+
+#latest-pubs .reading, #view-pub #reading {
+  clear: left;
+  padding-top: 1.5em;
+  margin-left: 6em;
+}
+
+#latest-pubs .reading-form, #view-pub #reading-form {
+  clear: left;
+  padding-top: 1em;
+  margin-left: 3.5em;
+  padding-bottom: 2em;
+}
+
+#latest-pubs .reading-form label, #view-pub #reading-form label {
+  float: left;
+  width: 3em;
+  padding-right: 1em;
+}
+
+#latest-pubs .reading-form input, #view-pub #reading-form input {
+  float: left;
+}
+
+#latest-pubs .reading-form .submit-button, #view-pub #reading-form .submit-button {
+  clear: both;
+  margin-left: 6.5em;
+  margin-top: .5em;
 }
 
 #footer {

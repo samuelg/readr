@@ -5,28 +5,43 @@
 {% block content_left %}
 
 <div id="view-pub">
+  <hr />
+
   <p>
-    Title: {{ publication.title }}
-    <br />
-    Description: {{ publication.description }}
-    <br />
-    Added: {{ publication.added|date  }}
+    <div class="label">Title</div>
+    <div class="value">{{ publication.title }}</div>
+  </p><p></p>
+  <p>
+    <div class="label">Description</div>
+    <div class="value">{{ publication.description }}</div>
   </p>
   <p>
-    {% if reading %}
-      You have read this book (your rating: {{ reading.rating }}/5)
-    {% else %}
-      {% if user.is_authenticated %}
+    <div class="label">Added</div>
+    <div class="value">{{ publication.added|date }}</div>
+  </p>
+
+  {% if reading %}
+    <div id="reading">
+      your rating: {{ reading.rating }}/5
+    </div>
+  {% else %}
+    {% if user.is_authenticated %}
+      <div id="reading-form">
         <form method="POST" action="{% url pub_read publication.id %}">
 	  <ul>
-            {{ reading_form.as_ul }}
+            {% for field in reading_form %}
+              <label for="{{ field.name }}">{{ field.label_tag }}</label> {{ field }} 
+            {% endfor %}
 	  </ul>
-	  <input type="submit" value="Read" />
+
+          <div class="submit-button">
+	    <input type="submit" value="Read" />
+          </div>
 	  <input type="hidden" name="next" value="{% url pub_view publication.id %}" />
         </form>
-      {% endif %}
-    {% endif %}
-  </p>
+      </div>
+    {% endif %}      
+  {% endif %}
 
 </div>
 {% endblock %}

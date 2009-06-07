@@ -4,14 +4,19 @@
 
 {% block content_left %}
 
-{{ form.non_field_errors }}
+<div class="errors">
+  {{ form.non_field_errors }}
+</div>
 
 <div id="register-form">
   <form action="{% url register %}" method="POST">
     <ul>
       {% for field in form %}
         <li>
-          {{ field.errors }}
+          <div class="errors">
+            {{ field.errors }}
+          </div>
+
           <label for="{{ field.name }}">{{ field.label_tag }}</label> {{ field }}
         </li>
       {% endfor %}
