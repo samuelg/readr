@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block imports %}
+  <script src="{{ MEDIA_URL }}main.js" type="text/javascript"></script>
+{% endblock %}
+
 {% block header %} {{ publication.title}} {% endblock %}
 
 {% block content_left %}
@@ -19,6 +23,11 @@
     <div class="label">Added</div>
     <div class="value">{{ publication.added|date }}</div>
   </p>
+  <p>
+    <div class="label">Created by</div>
+    <div class="value">{{ publication.owner.username }}</div>
+  </p>
+
 
   {% if reading %}
     <div id="reading">
@@ -26,6 +35,12 @@
     </div>
   {% else %}
     {% if user.is_authenticated %}
+      <div id="reading-button" class="reading-button">
+        <button onClick="readBlindEffect(''); return false;">
+          Read this
+        </button>
+      </div>
+
       <div id="reading-form">
         <form method="POST" action="{% url pub_read publication.id %}">
 	  <ul>

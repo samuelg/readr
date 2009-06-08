@@ -157,6 +157,9 @@ form li {
   margin-left: 2em;
 }
 
+.reading-form, #reading-form {
+  display: none;
+}
 
 #latest-pubs .label, #view-pub .label {
   float: left;
@@ -181,7 +184,7 @@ form li {
 
 #latest-pubs .reading-form, #view-pub #reading-form {
   clear: left;
-  padding-top: 1em;
+  padding-top: 0.5em;
   margin-left: 3.5em;
   padding-bottom: 2em;
 }
@@ -200,6 +203,12 @@ form li {
   clear: both;
   margin-left: 6.5em;
   margin-top: .5em;
+}
+
+#latest-pubs .reading-button, #view-pub .reading-button {
+  clear: both;
+  margin-left: 6em;
+  margin-top: 3.5em;
 }
 
 #footer {
