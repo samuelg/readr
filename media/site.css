@@ -161,6 +161,10 @@ form li {
   display: none;
 }
 
+#reading-form .errors {
+  margin-left: 1.5em;
+}
+
 #latest-pubs .label, #view-pub .label {
   float: left;
   margin-right: 1em;

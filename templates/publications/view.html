@@ -35,16 +35,26 @@
     </div>
   {% else %}
     {% if user.is_authenticated %}
+
+      {% if reading_form.errors %}
+      <div id="reading-button" class="reading-button" style="display: none;">
+      {% else %}
       <div id="reading-button" class="reading-button">
+      {% endif %}    
         <button onClick="readBlindEffect(''); return false;">
           Read this
         </button>
       </div>
-
+      
+      {% if reading_form.errors %}
+      <div id="reading-form" style="display: block;">
+      {% else %}
       <div id="reading-form">
+      {% endif %}
         <form method="POST" action="{% url pub_read publication.id %}">
 	  <ul>
             {% for field in reading_form %}
+              <div class="errors">{{ field.errors }}</div>
               <label for="{{ field.name }}">{{ field.label_tag }}</label> {{ field }} 
             {% endfor %}
 	  </ul>
