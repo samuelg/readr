@@ -12,9 +12,9 @@ RATING_CHOICES = (
 )
 
 class Publication(models.Model):
+    title = models.TextField(unique=True)
     description = models.TextField()
     added = models.DateTimeField(default=datetime.now)
-    title = models.TextField()
     owner = models.ForeignKey(User, related_name='owner_publication_set')
     readers = models.ManyToManyField(User, through='Reading', related_name='reader_publication_set')
 
@@ -27,6 +27,9 @@ class Reading(models.Model):
     readDate = models.DateTimeField(default=datetime.now)
     rating = models.IntegerField(choices=RATING_CHOICES)
 
+    class Meta:
+        unique_together = ('user', 'publication')
+
     def __unicode__(self):
         return '%s has read %s' % (self.user.username, self.publication)
 
@@ -34,6 +37,9 @@ class Quote(models.Model):
     text = models.TextField()
     publication = models.ForeignKey(Publication)
     added = models.DateTimeField(default=datetime.now)
+
+    class Meta:
+        unique_together = ('publication', 'text')
 
     def __unicode__(self):
         return self.text

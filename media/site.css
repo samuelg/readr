@@ -215,6 +215,11 @@ form li {
   margin-top: 3.5em;
 }
 
+#message-set p {
+  margin-left: 1.5em;
+  color: green;
+}
+
 #footer {
   clear: both;  
   padding-top: 1em;

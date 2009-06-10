@@ -24,6 +24,17 @@
 
   <div id="content-body">
     <div id="left-content-body">
+
+      {% if messages %}
+      <div id="message-set">
+        {% for message in messages %}
+          <p>
+            {{ message }}
+          </p>
+        {% endfor %}
+      </div>
+      {% endif %}
+
       <h2>
         {% block header %}{% endblock %}
       </h2>
@@ -40,9 +51,11 @@
         <p>
           <a href="{% url pub_latest %}">Latest reads</a>
 	</p>
+	{% if user.is_authenticated %}
         <p>
-          <a href=".">Your reads(TODO)</a>
+          <a href="{% url pub_reads user.username %}">Your reads</a>
         </p>
+	{% endif %}
         <p>
           <a href=".">Your profile(TODO)</a>
         </p>
