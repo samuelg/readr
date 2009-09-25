@@ -15,4 +15,4 @@ class ReadingForm(forms.ModelForm):
 
     class Meta:
         model = Reading
-        fields = ('rating')
+        fields = ('rating',)
