@@ -57,13 +57,15 @@ p {
 #content-body {
   text-align: center;
   clear: right;
+  width: 100%;
+  overflow: hidden;
 }
 
 #left-content-body {
   text-align: left;
   float:left;
   font-size: 1em;
-  width: auto;
+  width: 50em;
 }
 
 form ul {
@@ -142,6 +144,7 @@ form li {
   float: right;
   font-size: 1em;
   background-color: #333;
+  width: 15em;
 }
 
 #right-content-body a {

@@ -1,0 +1,232 @@
+[
+    {
+        "pk": 1, 
+        "model": "publications.publication", 
+        "fields": {
+            "owner": 1, 
+            "added": "2009-06-10 15:46:09", 
+            "description": "something", 
+            "title": "something"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "publications.publication", 
+        "fields": {
+            "owner": 1, 
+            "added": "2009-06-10 15:55:22", 
+            "description": "something", 
+            "title": "something2"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "publications.publication", 
+        "fields": {
+            "owner": 1, 
+            "added": "2009-06-10 15:57:48", 
+            "description": "something", 
+            "title": "something3"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "publications.publication", 
+        "fields": {
+            "owner": 1, 
+            "added": "2009-06-10 16:00:30", 
+            "description": "dfsd", 
+            "title": "fjdjsjfksjlkf"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "publications.publication", 
+        "fields": {
+            "owner": 1, 
+            "added": "2009-06-10 16:01:31", 
+            "description": "ffs", 
+            "title": "fdfds"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "publications.publication", 
+        "fields": {
+            "owner": 1, 
+            "added": "2009-06-10 16:01:51", 
+            "description": "dfsdf", 
+            "title": "dfds"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "publications.publication", 
+        "fields": {
+            "owner": 1, 
+            "added": "2009-06-10 16:02:08", 
+            "description": "de", 
+            "title": "fggrrtry"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "publications.publication", 
+        "fields": {
+            "owner": 2, 
+            "added": "2009-06-10 16:04:39", 
+            "description": "dsfdf", 
+            "title": "My book"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "publications.publication", 
+        "fields": {
+            "owner": 3, 
+            "added": "2009-06-10 16:08:30", 
+            "description": "fdf", 
+            "title": "second book"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "publications.publication", 
+        "fields": {
+            "owner": 4, 
+            "added": "2009-06-10 16:13:30", 
+            "description": "dss", 
+            "title": "allo"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "publications.publication", 
+        "fields": {
+            "owner": 3, 
+            "added": "2009-06-10 16:16:01", 
+            "description": "ds", 
+            "title": "allo toi"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "publications.publication", 
+        "fields": {
+            "owner": 4, 
+            "added": "2009-06-10 16:24:58", 
+            "description": "dfsj", 
+            "title": "hey"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "publications.reading", 
+        "fields": {
+            "readDate": "2009-06-10 15:46:09", 
+            "rating": 1, 
+            "user": 1, 
+            "publication": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "publications.reading", 
+        "fields": {
+            "readDate": "2009-06-10 15:55:22", 
+            "rating": 1, 
+            "user": 1, 
+            "publication": 2
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "publications.reading", 
+        "fields": {
+            "readDate": "2009-06-10 15:57:48", 
+            "rating": 1, 
+            "user": 1, 
+            "publication": 3
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "publications.reading", 
+        "fields": {
+            "readDate": "2009-06-10 16:00:30", 
+            "rating": 1, 
+            "user": 1, 
+            "publication": 4
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "publications.reading", 
+        "fields": {
+            "readDate": "2009-06-10 16:01:31", 
+            "rating": 1, 
+            "user": 1, 
+            "publication": 5
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "publications.reading", 
+        "fields": {
+            "readDate": "2009-06-10 16:01:51", 
+            "rating": 1, 
+            "user": 1, 
+            "publication": 6
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "publications.reading", 
+        "fields": {
+            "readDate": "2009-06-10 16:02:08", 
+            "rating": 1, 
+            "user": 1, 
+            "publication": 7
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "publications.reading", 
+        "fields": {
+            "readDate": "2009-06-10 16:05:04", 
+            "rating": 1, 
+            "user": 1, 
+            "publication": 8
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "publications.reading", 
+        "fields": {
+            "readDate": "2009-06-10 16:08:48", 
+            "rating": 1, 
+            "user": 1, 
+            "publication": 9
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "publications.reading", 
+        "fields": {
+            "readDate": "2009-06-10 16:13:46", 
+            "rating": 1, 
+            "user": 1, 
+            "publication": 10
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "publications.reading", 
+        "fields": {
+            "readDate": "2009-06-10 16:23:54", 
+            "rating": 1, 
+            "user": 1, 
+            "publication": 11
+        }
+    }
+]
