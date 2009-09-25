@@ -50,7 +50,7 @@ class PublicationsViewsTestCase(TestCase):
         self.assertEquals(response.context[-1].get('header', None), 'Latest reads')
         self.assertEquals(type(response.context[-1]['publications'].object_list[0][0]),
                           type(Publication()))
-        self.assertEquals(response.context[-1]['publications'].object_list[0][1], None)
+        self.assertEquals(response.context[-1]['publications'].object_list[1][1], None)
         self.assertEquals(type(response.context[-1]['reading_form']),
                           type(ReadingForm()))
         self.assertTrue(response.context[-1].get('MEDIA_URL', None))
@@ -61,8 +61,8 @@ class PublicationsViewsTestCase(TestCase):
         self.client.login(username='samuel', password='testing')
         response = self.client.get(reverse('pub_latest'))
         self.assertEquals(response.status_code, 200)
-        self.assertEquals(type(response.context[-1]['publications'].object_list[0][0]),
-                          type(Publication()))
+        self.assertEquals(type(response.context[-1]['publications'].object_list[1][1]),
+                          type(Reading()))
 
     def testRestrictedViews(self):
         """ Ensures restricted views are restricted """
