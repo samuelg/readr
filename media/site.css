@@ -233,3 +233,9 @@ form li {
   float: right;
   margin-top: .1em;
 }
+
+#404-error {
+  background-color: #eee;
+  margin: 50px;
+  font-size: 30pt;
+]

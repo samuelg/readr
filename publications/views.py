@@ -51,14 +51,15 @@ def read(request, publication_id):
     try:
         publication = Publication.objects.get(id=publication_id)
     except Publication.DoesNotExist:
-        return Http404
+        raise Http404
 
     # ensure user has not already read this publication
     try:
         reading = Reading.objects.get(publication=publication, user=request.user)
-        return Http404
     except Reading.DoesNotExist:
         pass # expected
+    else:
+        raise Http404
 
     if form.is_valid():
         reading = form.save(commit=False)
@@ -85,7 +86,7 @@ def view(request, publication_id):
     try:
         publication = Publication.objects.get(id=publication_id)
     except Publication.DoesNotExist:
-        return Http404
+        raise Http404
 
     try:
         if not request.user.is_authenticated():
@@ -108,7 +109,7 @@ def reads(request, username):
     try:
         user = User.objects.get(username=username) 
     except User.DoesNotExist:
-        return Http404
+        raise Http404
 
     publication_list = user.reader_publication_set.order_by('-added')
     return get_reads(request, publication_list, 'Your reads')
