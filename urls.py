@@ -1,16 +1,15 @@
 from django.conf.urls.defaults import *
 from django.contrib import admin
 import settings
-import views
+from publications.views import latest
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^admin/(.*)', admin.site.root),
     (r'^publications/', include('publications.urls')),
-    url(r'^$', views.login_user, name='login'),
-    url(r'^register/$', views.register_user, name='register'),
-    url(r'^logout/$', views.logout_user, name='logout'),
+    (r'^auth/', include('auth.urls')),                       
+    url(r'^$', latest),
 )
 
 # setup to server static files in development mode

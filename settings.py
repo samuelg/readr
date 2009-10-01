@@ -13,7 +13,7 @@ ADMINS = (
     ('samuelg', 'samuel.galarneau@gmail.com'),
 )
 
-LOGIN_URL = '/'
+LOGIN_URL = '/auth/login'
 
 MANAGERS = ADMINS
 
