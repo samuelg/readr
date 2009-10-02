@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
-from auth.forms import LoginForm, RegisterForm
+from users.forms import LoginForm, RegisterForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
@@ -30,7 +30,7 @@ def login_user(request):
     context = {'form': form}
     if 'next' in request.REQUEST:
         context['next'] = request.REQUEST['next']
-    return render_to_response('auth/login.html', context, context_instance=RequestContext(request))
+    return render_to_response('users/login.html', context, context_instance=RequestContext(request))
 
 def logout_user(request):
     if request.user.is_authenticated():
@@ -60,4 +60,4 @@ def register_user(request):
         return HttpResponseRedirect(reverse('login'))
 
     context = {'form': form}
-    return render_to_response('auth/register.html', context, context_instance=RequestContext(request))
+    return render_to_response('users/register.html', context, context_instance=RequestContext(request))

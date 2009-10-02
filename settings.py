@@ -13,7 +13,7 @@ ADMINS = (
     ('samuelg', 'samuel.galarneau@gmail.com'),
 )
 
-LOGIN_URL = '/auth/login'
+LOGIN_URL = '/users/login'
 
 MANAGERS = ADMINS
 
@@ -92,4 +92,5 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'publications',
+    'users',
 )

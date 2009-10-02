@@ -8,7 +8,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^admin/(.*)', admin.site.root),
     (r'^publications/', include('publications.urls')),
-    (r'^auth/', include('auth.urls')),                       
+    (r'^users/', include('users.urls')),                       
     url(r'^$', latest),
 )
 
