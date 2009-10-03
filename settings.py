@@ -15,6 +15,8 @@ ADMINS = (
 
 LOGIN_URL = '/users/login'
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
