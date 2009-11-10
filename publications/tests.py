@@ -2,8 +2,8 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.core.urlresolvers import reverse
-from publications.models import Publication, Reading
-from publications.forms import ReadingForm, PublicationForm
+from publications.models import Publication, Reading, Quote
+from publications.forms import ReadingForm, PublicationForm, QuoteForm
 import settings
 
 TEST_SERVER_URL = 'http://testserver'
@@ -26,6 +26,25 @@ class ReadingModelTestCase(TestCase):
         """ Ensures __unicode__ returns expected output """
         reading = Reading.objects.get(pk=1)
         self.assertEquals(str(reading), 'samuel has read something')
+
+class QuoteModelTestCase(TestCase):
+    fixtures = ['publications']
+    
+    def setUp(self):
+        user = User(pk=1, username='samuel')
+        user.save()
+
+    def testQuoteUniqueness(self):
+        """ Ensures quotes are unique """
+        pub = Publication.objects.get(pk=1)
+        user = User.objects.get(pk=1)
+        quote = Quote(publication=pub, text='something darkside')
+        self.assertRaises(IntegrityError, quote.save)
+
+    def testQuoteUnicode(self):
+        """ Ensures __unicode__ returns expected output """
+        quote = Quote.objects.get(pk=1)
+        self.assertEquals(str(quote), 'something darkside')
 
 class PublicationModelTestCase(TestCase):
     fixtures = ['publications']
@@ -75,6 +94,8 @@ class PublicationsViewsTestCase(TestCase):
                           type(Publication()))
         self.assertEquals(type(response.context[-1]['reading_form']),
                           type(ReadingForm()))
+        self.assertEquals(type(response.context[-1]['quote_form']),
+                          type(QuoteForm()))
         self.assertTrue(response.context[-1].get('MEDIA_URL', None))
         self.assertTrue(response.context[-1].get('user', None))
         self.assertEquals(response.template[0].name, '%s%s' % (self.template_dir, 'view.html'))        
@@ -189,3 +210,33 @@ class PublicationsViewsTestCase(TestCase):
             'rating': 5 
             })
         self.assertEquals(response.status_code, 404)
+
+    def testQuoteViewAnonymous(self):
+        """ Ensures the quote view redirects to login when anonymous """
+        response = self.client.get(reverse('pub_quote', args=[1]), follow=True)
+        self.assertEquals(response.redirect_chain[0][0],
+                          '%s%s?next=%s' %
+                          (TEST_SERVER_URL, settings.LOGIN_URL, reverse('pub_quote', args=[1])))
+        
+    def testQuoteViewPostAuthenticated(self):
+        """ Ensures the quote view works properly with a POST when authenticated """
+        self.client.login(username='samuel', password='testing')
+        response = self.client.post(reverse('pub_quote', args=[1]), {
+            'text': 'something complete'
+            }, follow=True)
+        self.assertEquals(response.status_code, 200)
+        # should redirect to latest view after quote
+        self.assertEquals(response.redirect_chain[0][0], '%s%s' % (TEST_SERVER_URL, reverse('pub_latest')))
+        # make sure the quote was created
+        pub = Publication.objects.get(pk=1)
+        quote = Quote.objects.get(publication=pub, text='something complete')
+        self.assertTrue(quote)
+
+    def testQuoteViewNotFound(self):
+        """ Ensures the quote view returns 404 for unknown publications """
+        self.client.login(username='samuel', password='testing')
+        response = self.client.post(reverse('pub_quote', args=[100]), {
+            'text': 'the unknown speak little' 
+            })
+        self.assertEquals(response.status_code, 404)
+        

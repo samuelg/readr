@@ -228,5 +228,14 @@
             "user": 1, 
             "publication": 11
         }
-    }
+    },
+    {
+        "pk": 1, 
+        "model": "publications.quote", 
+        "fields": {
+            "added": "2009-11-08 15:55:22", 
+            "text": "something darkside",
+            "publication": 1
+        }
+    } 
 ]

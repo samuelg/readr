@@ -168,6 +168,14 @@ form li {
   margin-left: 1.5em;
 }
 
+.quote-form, #quote-form {
+  display: none;
+}
+
+#quote-form .errors {
+  margin-left: 1.5em;
+}
+
 #latest-pubs .label, #view-pub .label {
   float: left;
   margin-right: 1em;

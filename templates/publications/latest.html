@@ -49,7 +49,7 @@
       {% else %}
         {% if user.is_authenticated %}
           <div id="reading-button-{{ publication.id }}" class="reading-button">
-            <button onClick="readBlindEffect('-{{ publication.id }}'); return false;">
+            <button onClick="blindEffect('reading', '-{{ publication.id }}'); return false;">
               Read this
             </button>
           </div>

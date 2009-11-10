@@ -1,5 +1,5 @@
 from django import forms
-from publications.models import Publication, Reading, RATING_CHOICES
+from publications.models import Publication, Reading, Quote, RATING_CHOICES
 
 class PublicationForm(forms.ModelForm):
     title = forms.CharField(label='Title', max_length=50, widget=forms.TextInput)
@@ -16,3 +16,10 @@ class ReadingForm(forms.ModelForm):
     class Meta:
         model = Reading
         fields = ('rating',)
+
+class QuoteForm(forms.ModelForm):
+    text = forms.CharField(label='Quote', max_length=250, widget=forms.TextInput)
+
+    class Meta:
+        model = Quote
+        fields = ('text',)

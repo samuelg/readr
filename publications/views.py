@@ -1,6 +1,6 @@
-from publications.models import Publication, Reading
+from publications.models import Publication, Reading, Quote
 from django.shortcuts import render_to_response
-from publications.forms import PublicationForm, ReadingForm
+from publications.forms import PublicationForm, ReadingForm, QuoteForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.decorators import login_required
@@ -79,6 +79,7 @@ def view(request, publication_id):
         Displays the publication.
     """
     form = ReadingForm()
+    quoteForm = QuoteForm()
     reading = None
 
     # ensure publication exists
@@ -95,7 +96,7 @@ def view(request, publication_id):
         pass
 
     return render_to_response('publications/view.html',
-        {'publication': publication, 'reading': reading, 'reading_form': form},
+        {'publication': publication, 'reading': reading, 'reading_form': form, 'quote_form': quoteForm},
         context_instance=RequestContext(request)
     )
 
@@ -152,3 +153,30 @@ def get_reads(request, publication_list, header):
         context,
         context_instance=RequestContext(request)
     )
+
+@login_required
+def quote(request, publication_id):
+    """
+        Adds a quote to the publication.
+    """
+    form = QuoteForm(request.POST or None)
+
+    # ensure publication exists
+    try:
+        publication = Publication.objects.get(id=publication_id)
+    except Publication.DoesNotExist:
+        raise Http404
+
+    if form.is_valid():
+        quote = form.save(commit=False)
+        quote.publication = publication
+        quote.save()
+        request.user.message_set.create(message='You have added a quote to %s' % (publication.title))
+
+        return HttpResponseRedirect(request.POST.get('next', reverse('pub_latest')))
+
+    return render_to_response('publications/view.html',
+        {'publication': publication, 'quote_form': form},
+        context_instance=RequestContext(request)
+    )
+
