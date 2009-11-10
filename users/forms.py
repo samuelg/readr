@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
-
 class LoginForm(forms.Form):
     user_id = forms.CharField(max_length=50, label='User ID', widget=forms.TextInput)
     password = forms.CharField(max_length=16, widget=forms.PasswordInput(render_value=False))
@@ -47,7 +46,6 @@ class RegisterForm(forms.Form):
             except User.DoesNotExist:
                 user = None
 
-
             if user is not None:
                 raise forms.ValidationError('the user id is already in use')
 
@@ -62,3 +60,4 @@ class RegisterForm(forms.Form):
                 raise forms.ValidationError('password_confirm must match password')
             
         return cleaned_data
+

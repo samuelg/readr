@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 
 TEST_SERVER_URL = 'http://testserver'
 
-class AuthViewsTestCase(TestCase):
+class UsersViewsTestCase(TestCase):
 
     def setUp(self):
         user = User(pk=1, username='samuel')
@@ -54,6 +54,34 @@ class AuthViewsTestCase(TestCase):
         # should redirect to latest publications
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.redirect_chain[0][0], '%s%s' % (TEST_SERVER_URL, reverse('pub_latest')))
+
+    def testLoginUserViewPostFailureUserDoesNotExist(self):
+        """ Ensures that the login user view fails for an unexisting user """
+        response = self.client.post(reverse('login'), {'user_id': 'doesnotexist', 'password': 'testing', 'remember': False})
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('user id and password combination not found' in response.content)
+        # make sure user was not logged in
+        self.assertEquals(response.context[-1].get('user', None), AnonymousUser())
+
+    def testLoginUserViewPostFailureBadPassword(self):
+        """ Ensures that the login user view fails for bad password """
+        response = self.client.post(reverse('login'), {'user_id': 'samuel', 'password': 'badpassword', 'remember': False})
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('user id and password combination not found' in response.content)
+        # make sure user was not logged in
+        self.assertEquals(response.context[-1].get('user', None), AnonymousUser())
+
+    def testLoginUserViewPostFailureUserInactive(self):
+        """ Ensures that the login user view fails for an inactive user """
+        # make user inactive
+        user = User.objects.get(username='samuel')
+        user.is_active = False
+        user.save()
+        response = self.client.post(reverse('login'), {'user_id': 'samuel', 'password': 'testing', 'remember': False})
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('user id and password combination not found' in response.content)
+        # make sure user was not logged in
+        self.assertEquals(response.context[-1].get('user', None), AnonymousUser())
 
     def testLogoutUserViewGetAuthenticated(self):
         """ Ensures that the logout user view works properly with a GET when authenticated """
@@ -111,6 +139,41 @@ class AuthViewsTestCase(TestCase):
         user = User.objects.get(username='samuelnew')
         self.assertTrue(user)
 
+    def testRegisterUserViewPostFailureUserAlreadyExists(self):
+        """ Ensures that the register user view fails for already existing user """
+        response = self.client.post(reverse('register'), {
+                'user_id': 'samuel', 'password': 'testing',
+                'password_confirm': 'testing', 'email': 'samuel@email.com'
+            })
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('the user id is already in use' in response.content)
+
+    def testRegisterUserViewPostFailureEmailAlreadyExists(self):
+        """ Ensures that the register user view fails for an already existing email """
+        # set email of default user to clash
+        user = User.objects.get(username='samuel')
+        user.email = 'samuel@email.com'
+        user.save()
+        response = self.client.post(reverse('register'), {
+                'user_id': 'samuelnew', 'password': 'testing',
+                'password_confirm': 'testing', 'email': 'samuel@email.com'
+            })
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('the email is already in use' in response.content)
+        # make sure user was not created
+        self.assertRaises(User.DoesNotExist, User.objects.get, username='samuelnew')
+
+    def testRegisterUserViewPostFailurePasswordsDoNotMatch(self):
+        """ Ensures that the register user view fails for passwords that do not match """
+        response = self.client.post(reverse('register'), {
+                'user_id': 'samuelnew', 'password': 'testing',
+                'password_confirm': 'different', 'email': 'samuel@email.com'
+            })
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('password_confirm must match password' in response.content)
+        # make sure user was not created
+        self.assertRaises(User.DoesNotExist, User.objects.get, username='samuelnew')
+
     def testRegisterUserViewAuthenticated(self):
         """ Ensures that the register user view works properly when authenticated """
         self.client.login(username='samuel', password='testing')
@@ -118,3 +181,4 @@ class AuthViewsTestCase(TestCase):
         # should redirect to latest publications
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.redirect_chain[0][0], '%s%s' % (TEST_SERVER_URL, reverse('pub_latest')))
+
