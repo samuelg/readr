@@ -18,6 +18,9 @@ class Publication(models.Model):
     owner = models.ForeignKey(User, related_name='owner_publication_set')
     readers = models.ManyToManyField(User, through='Reading', related_name='reader_publication_set')
 
+    class Meta:
+        ordering = ['-added']
+
     def __unicode__(self):
         return self.title
 

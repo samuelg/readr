@@ -11,10 +11,9 @@ from django.contrib.auth.models import User
 
 def latest(request):
     """
-        Displays the latest publications in descending order. Uses pagination.
+        Displays the latest publications. Uses pagination.
     """
-    publication_list = Publication.objects.order_by('-added')
-    return get_reads(request, publication_list, 'Latest reads')
+    return get_reads(request, Publication.objects.all(), 'Latest reads')
 
 @login_required
 def create(request):
@@ -111,12 +110,11 @@ def reads(request, username):
     except User.DoesNotExist:
         raise Http404
 
-    publication_list = user.reader_publication_set.order_by('-added')
-    return get_reads(request, publication_list, 'Your reads')
+    return get_reads(request, user.reader_publication_set.all(), 'Your reads')
 
 def get_reads(request, publication_list, header):
     """
-        Returns a rendered response of reads (either latest or a user's reads).
+        Returns reads (either latest or a user's reads).
     """
 
     readings = []
