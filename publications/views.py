@@ -76,10 +76,10 @@ def read(request, publication_id):
 
 def view(request, publication_id):
     """
-        Displays the publication.
+        Displays the publication along with a reading if it exista and the first 5 existing quotes.
     """
     form = ReadingForm()
-    quoteForm = QuoteForm()
+    quote_form = QuoteForm()
     reading = None
 
     # ensure publication exists
@@ -88,15 +88,25 @@ def view(request, publication_id):
     except Publication.DoesNotExist:
         raise Http404
 
+    # get reading
     try:
         if not request.user.is_authenticated():
             raise Reading.DoesNotExist
         reading = Reading.objects.get(publication=publication, user=request.user)
     except Reading.DoesNotExist:
         pass
+    
+    # get quotes
+    quotes = publication.quote_set.all()[:5]
 
     return render_to_response('publications/view.html',
-        {'publication': publication, 'reading': reading, 'reading_form': form, 'quote_form': quoteForm},
+        {
+            'publication': publication,
+            'reading': reading,
+            'reading_form': form,
+            'quote_form': quote_form,
+            'quotes': quotes
+        },
         context_instance=RequestContext(request)
     )
 
@@ -175,8 +185,15 @@ def quote(request, publication_id):
 
         return HttpResponseRedirect(request.POST.get('next', reverse('pub_latest')))
 
+    # get first 5 quotes
+    quotes = publication.quote_set.all()[:5]
+
     return render_to_response('publications/view.html',
-        {'publication': publication, 'quote_form': form},
+        {
+            'publication': publication,
+            'quote_form': form,
+            'quotes': quotes
+        },
         context_instance=RequestContext(request)
     )
 

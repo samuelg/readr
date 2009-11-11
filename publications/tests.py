@@ -96,6 +96,7 @@ class PublicationsViewsTestCase(TestCase):
                           type(ReadingForm()))
         self.assertEquals(type(response.context[-1]['quote_form']),
                           type(QuoteForm()))
+        self.assertTrue(response.context[-1].get('quotes', None))
         self.assertTrue(response.context[-1].get('MEDIA_URL', None))
         self.assertTrue(response.context[-1].get('user', None))
         self.assertEquals(response.template[0].name, '%s%s' % (self.template_dir, 'view.html'))        
@@ -217,7 +218,20 @@ class PublicationsViewsTestCase(TestCase):
         self.assertEquals(response.redirect_chain[0][0],
                           '%s%s?next=%s' %
                           (TEST_SERVER_URL, settings.LOGIN_URL, reverse('pub_quote', args=[1])))
-        
+
+    def testQuoteviewGetAuthenticated(self):
+        """ Ensures the quote view works properly with a GET when authenticated """
+        self.client.login(username='samuel', password='testing')
+        response = self.client.get(reverse('pub_quote', args=[1]))
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(type(response.context[-1]['quote_form']),
+                          type(QuoteForm()))
+        self.assertTrue(response.context[-1].get('MEDIA_URL', None))
+        self.assertTrue(response.context[-1].get('user', None))
+        self.assertTrue(response.context[-1].get('quotes', None))
+        self.assertTrue(response.context[-1].get('publication', None))
+        self.assertEquals(response.template[0].name, '%s%s' % (self.template_dir, 'view.html'))
+
     def testQuoteViewPostAuthenticated(self):
         """ Ensures the quote view works properly with a POST when authenticated """
         self.client.login(username='samuel', password='testing')

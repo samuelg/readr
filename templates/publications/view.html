@@ -68,6 +68,20 @@
     {% endif %}      
   {% endif %}
 
+  <hr />
+  <h3>Quotes</h3>
+  <div id="quotes-list">
+  {% if quotes %}
+    {% for quote in quotes %}
+      <div class="quote">
+        "{{ quote.text }}"
+      </div>
+    {% endfor %}
+  {% else %}
+    No quotes have been added for {{ publication.title }}
+  {% endif %}
+  </div>
+
   {% if user.is_authenticated %}
 
     {% if quote_form.errors %}
